@@ -1,6 +1,7 @@
 package com.haji.MyFirstWebApp.login;
 
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
@@ -15,6 +16,8 @@ import ch.qos.logback.classic.Logger;
 @Controller
 public class loginController {
 	private org.slf4j.Logger logger = LoggerFactory.getLogger(getClass());
+	@Autowired
+	private AuthenticateService as;
 
 	@RequestMapping("log")
 	public String asds(@RequestParam String name, ModelMap m) {
@@ -27,19 +30,25 @@ public class loginController {
 	public String asd() {
 		return "login";
 	}
-	//for Get one -> this will return a response body directly
-	@RequestMapping(value="loggedValues",method=RequestMethod.GET)
+
+	// for Get one -> this will return a response body directly
+	@RequestMapping(value = "loggedValues", method = RequestMethod.GET)
 	@ResponseBody
-	public String retVaa(@RequestParam("name")String name,@RequestParam("password")String pass) {
-		return "UserName is "+name+"<br> Password is "+pass;
+	public String retVaa(@RequestParam("name") String name, @RequestParam("password") String pass) {
+		return "UserName is " + name + "<br> Password is " + pass;
 	}
 
-	@RequestMapping(value="loggedValues",method=RequestMethod.POST)
-	//@ResponseBody
-	public String retVal(@RequestParam("name") String name, @RequestParam("password") String pass,
-			Model m) {
-		m.addAttribute("name", name);
-		m.addAttribute("pass", pass);
-		return "logCred";
+	@RequestMapping(value = "loggedValues", method = RequestMethod.POST)
+	// @ResponseBody
+	public String retVal(@RequestParam("name") String name, @RequestParam("password") String pass, Model m) {
+
+		if (as.AuthenticateUser(name, pass)) {
+			m.addAttribute("name", name);
+			m.addAttribute("pass", pass);
+			return "logCred";
+		} else {
+			m.addAttribute("err","INVALID CREDENTIALS TRY AGAIN");
+			return "login";
+		}
 	}
 }
