@@ -7,10 +7,10 @@ public class todo {
 	String username;
 	String description;
 	LocalDate targetDate;
+	boolean done;
 
 	todo() {
 
-		
 	}
 
 	todo(int id, String username, String description, LocalDate targetDate, boolean done) {
@@ -27,8 +27,6 @@ public class todo {
 		return "todo [id=" + id + ", username=" + username + ", description=" + description + ", targetDate="
 				+ targetDate + ", done=" + done + "]";
 	}
-
-	boolean done;
 
 	public int getId() {
 		return id;

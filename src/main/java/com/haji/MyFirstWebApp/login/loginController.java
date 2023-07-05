@@ -9,11 +9,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
 import ch.qos.logback.classic.Logger;
 
 @Controller
+
+@SessionAttributes("name")
 public class loginController {
 	private org.slf4j.Logger logger = LoggerFactory.getLogger(getClass());
 	@Autowired
@@ -47,7 +50,7 @@ public class loginController {
 			m.addAttribute("pass", pass);
 			return "logCred";
 		} else {
-			m.addAttribute("err","INVALID CREDENTIALS TRY AGAIN");
+			m.addAttribute("err", "INVALID CREDENTIALS TRY AGAIN");
 			return "login";
 		}
 	}
