@@ -2,9 +2,16 @@ package com.haji.MyFirstWebApp.todo;
 
 import java.time.LocalDate;
 
+import org.springframework.stereotype.Component;
+
+import jakarta.validation.constraints.Size;
+
+@Component
 public class todo {
 	int id;
 	String username;
+
+	@Size(min = 10, message = "Enter minimum of 10 characters")
 	String description;
 	LocalDate targetDate;
 	boolean done;

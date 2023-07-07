@@ -10,7 +10,7 @@
 	integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM"
 	crossorigin="anonymous">
 <meta charset="ISO-8859-1">
-<title>Add TODO</title>
+<title>Update TODO</title>
 </head>
 <body>
 
@@ -18,18 +18,19 @@
 	<h1>Welcome ${name}</h1>
 	<hr>
 	<div class="container">
-		<h2>Add the details of the new todo</h2>
+		<h2>Update the details of the existing todo</h2>
 
 
-		<form:form method="post" modelAttribute="todo">
+		<form:form method="post" modelAttribute="t">
 			<form:input type="text" name="des" required="required"
 				path="description" />
 			<br>
 			<form:errors path="description"></form:errors>
 			<form:input type="hidden" name="id" path="id" />
 			<br>
-			<form:input type="hidden" name="done" path="done"/>
+			<form:input type="text" name="done" path="done">
 				
+			</form:input>
 			<br>
 			<input type="submit" class="btn btn-success">
 		</form:form>
