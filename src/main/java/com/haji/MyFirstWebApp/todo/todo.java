@@ -13,6 +13,7 @@ public class todo {
 
 	@Size(min = 10, message = "Enter minimum of 10 characters")
 	String description;
+	
 	LocalDate targetDate;
 	boolean done;
 

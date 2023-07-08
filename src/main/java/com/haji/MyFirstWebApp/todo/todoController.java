@@ -43,7 +43,7 @@ public class todoController {
 
 		String UserName = (String) m.getAttribute("name");
 
-		ts.AddTodo(UserName, t.getDescription(), LocalDate.now().plusDays(3), false);
+		ts.AddTodo(UserName, t.getDescription(), t.getTargetDate(), false);
 		m.addAttribute("todos", ts.findByUserName("hai"));
 		return "redirect:listtodo";
 	}
@@ -52,30 +52,32 @@ public class todoController {
 	// listtodo.jsp to here to Add-todo.jsp >> then with details get to Add todo
 	public String addtodo(ModelMap m) {
 		String Uname = (String) m.getAttribute("name");
-		todo todo = new todo(0, Uname, "", LocalDate.now().plusMonths(1), false);
+		todo todo = new todo(0, Uname, "", null, false);
 		m.addAttribute(todo);
 		return "Add-todo";
 	}
 
 	@RequestMapping("deletetodo")
 	public String deleteTodo(@RequestParam int id) {
-		
+
 		ts.deleteTodo(id);
 		return "redirect:listtodo";
 	}
-	
-	
-	
+
 	@RequestMapping("UpdateTodo")
-	public String UpdateTodo(@RequestParam int id,ModelMap m) {
-		todo t=ts.getTodo(id);
-		m.addAttribute(t);
-		return "UpdateTodo";
+	public String UpdateTodo(@RequestParam int id, ModelMap m) {
+		todo t = ts.getTodo(id);
+		m.addAttribute("todo", t);
+		
+		return "Add-todo";
 	}
-	
-	
-	@RequestMapping(value="UpdateTodo",method=RequestMethod.POST)
-	public String UpdatedTodo(@ModelAttribute todo t) {
+
+	@RequestMapping(value = "UpdateTodo", method = RequestMethod.POST)
+	public String UpdatedTodo(@ModelAttribute todo t,ModelMap m) {
+	//	ts.UpdateTodo(t.getId(), t.getDescription(),t.getTargetDate(), t.isDone());
+		String name=(String)m.getAttribute("name");
+		t.setUsername(name);
+		ts.UpdateTodo(t);
 		return "redirect:listtodo";
 	}
 }
