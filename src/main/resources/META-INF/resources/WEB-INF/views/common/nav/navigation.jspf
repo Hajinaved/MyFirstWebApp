@@ -1,0 +1,14 @@
+<nav class="navbar navbar-expand-md navbar-light bg-light mb-3 p-1">
+		<div class="navbar-brand m-1" style="font-family: monospace">MY
+			TODO APP</div>
+		<div class="collapse navbar-collapse">
+			<ul class="navbar-nav">
+				<li class="nav-item"><a class="nav-link"
+					href="/loggedValues?name=${name}&password=${password}">Home</a></li>
+				<li class="nav-item"><a class="nav-link" href="/listtodo">Todos</a></li>
+			</ul>
+		</div>
+		<ul class="navbar-nav">
+			<li class="nav-item"><a class="nav-link" href="/logout">Logout</a></li>
+		</ul>
+	</nav>

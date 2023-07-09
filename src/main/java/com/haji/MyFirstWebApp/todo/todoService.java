@@ -71,7 +71,12 @@ public class todoService {
 		int i = t.getId();
 		todos.removeIf(td -> (td.getId() == i));
 		todos.add(new todo(i, t.getUsername(), t.getDescription(), t.getTargetDate(), t.isDone()));
-		
-		System.out.println(t.toString());
+		ogger.info("UPDATEED" + t.toString());
+
+	}
+
+	public void changeStatus(int id) {
+		todo td = todos.stream().filter(t -> (t.getId() == id)).findAny().orElse(null);
+		td.setDone(!(td.isDone()));
 	}
 }

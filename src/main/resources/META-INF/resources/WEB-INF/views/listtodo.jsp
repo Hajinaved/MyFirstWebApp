@@ -2,6 +2,7 @@
 
 <html>
 <head>
+
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
 	rel="stylesheet"
@@ -12,6 +13,7 @@
 <title>List Todos Page</title>
 </head>
 <body>
+	<%@include file="common/nav/navigation.jspf"%>
 	<h1>Welcome ${name}</h1>
 	<hr>
 	<div class="container">
@@ -19,10 +21,11 @@
 		<table class="table">
 			<thead>
 				<tr>
-					
+
 					<th>Description</th>
 					<th>Target Date</th>
 					<th>Is Done?</th>
+					<th></th>
 					<th></th>
 					<th></th>
 				</tr>
@@ -30,7 +33,7 @@
 			<tbody>
 				<c:forEach items="${todos}" var="todo">
 					<tr>
-					
+
 						<td>${todo.description}</td>
 						<td>${todo.targetDate}</td>
 						<td>${todo.done}</td>
@@ -38,6 +41,8 @@
 							class="btn btn-primary">DELETE</a></td>
 						<td><a href="UpdateTodo?id=${todo.id}"
 							class="btn btn-warning">Update</a>
+						<td><a href="statuschange?id=${todo.id}"
+							class="btn btn-warning">Change status</a>
 					</tr>
 				</c:forEach>
 			</tbody>

@@ -25,7 +25,8 @@ public class todoController {
 	@RequestMapping("listtodo")
 	// @ResponseBody
 	public String ll(Model m) {
-		m.addAttribute("todos", ts.findByUserName("hahi"));
+		m.addAttribute("todos", ts.findByUserName((String) m.getAttribute("name")));
+
 		return "listtodo";
 		// return ts.findByUserName("HAJI").toString();
 
@@ -68,16 +69,23 @@ public class todoController {
 	public String UpdateTodo(@RequestParam int id, ModelMap m) {
 		todo t = ts.getTodo(id);
 		m.addAttribute("todo", t);
-		
+
 		return "Add-todo";
 	}
 
 	@RequestMapping(value = "UpdateTodo", method = RequestMethod.POST)
-	public String UpdatedTodo(@ModelAttribute todo t,ModelMap m) {
-	//	ts.UpdateTodo(t.getId(), t.getDescription(),t.getTargetDate(), t.isDone());
-		String name=(String)m.getAttribute("name");
+	public String UpdatedTodo(@ModelAttribute todo t, ModelMap m) {
+		// ts.UpdateTodo(t.getId(), t.getDescription(),t.getTargetDate(), t.isDone());
+		String name = (String) m.getAttribute("name");
 		t.setUsername(name);
 		ts.UpdateTodo(t);
 		return "redirect:listtodo";
+	}
+
+	@RequestMapping("statuschange")
+	public String statusChange(@RequestParam int id) {
+		ts.changeStatus(id);
+		return "redirect:listtodo";
+
 	}
 }

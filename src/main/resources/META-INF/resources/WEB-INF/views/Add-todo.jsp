@@ -9,6 +9,7 @@
 	rel="stylesheet"
 	integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM"
 	crossorigin="anonymous">
+
 <meta charset="ISO-8859-1">
 <title>Add TODO</title>
 </head>
@@ -26,20 +27,20 @@
 			<fieldset class="mb-1">
 				<form:label path="description">Description : </form:label>
 				<form:input type="text" name="des" required="required"
-					path="description" cssClass="test-warning"/>
+					path="description" cssClass="test-warning" />
 				<form:errors path="description"></form:errors>
 			</fieldset>
 
 			<fieldset class="mb-1">
 				<form:label path="targetDate">Target-Date : </form:label>
-				<form:input type="text" name="targetDate" placeholder="YYYY-MM-DD" required="required"
-					path="targetDate" cssClass="test-warning"/>
+				<form:input id="targetDate" type="date" name="targetDate"
+					required="required" path="targetDate" cssClass="test-warning" />
 				<form:errors path="targetDate"></form:errors>
 			</fieldset>
-			
-			
-			
-			
+
+
+
+
 			<form:input type="hidden" name="id" path="id" />
 			<br>
 			<form:input type="hidden" name="done" path="done" />
@@ -51,5 +52,6 @@
 			<input type="submit" class="btn btn-success">
 		</form:form>
 	</div>
+
 </body>
 </html>
