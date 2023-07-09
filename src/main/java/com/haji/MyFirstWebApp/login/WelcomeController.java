@@ -19,37 +19,18 @@ import jakarta.websocket.Session;
 @Controller
 
 @SessionAttributes("name")
-public class loginController {
+public class WelcomeController {
 	private org.slf4j.Logger logger = LoggerFactory.getLogger(getClass());
-	@Autowired
-	private AuthenticateService as;
+	
+	
 
-	@RequestMapping("log")
-	public String asds(@RequestParam String name, ModelMap m) {
-		m.put("name", name);
-		logger.debug("the values of the requested param is " + name);
-		return "Login2";
+	@RequestMapping("/")
+	public String gotoWelcomePage(ModelMap m) {
+		m.addAttribute("name","HAJI");
+		return "welcome";
 	}
 
-	@RequestMapping("login")
-	public String asd() {
-		return "login";
-	}
-	// for Get one -> this will return a response body directly
-
-	@RequestMapping(value = "loggedValues")
-	// @ResponseBody
-	public String retVal(@RequestParam("name") String name, @RequestParam("password") String pass, Model m) {
-
-		if (as.AuthenticateUser(name, pass)) {
-			m.addAttribute("name", name);
-			m.addAttribute("pass", pass);
-			return "redirect:listtodo";
-		} else {
-			m.addAttribute("err", "INVALID CREDENTIALS TRY AGAIN");
-			return "login";
-		}
-	}
+	
 
 	@RequestMapping("logout")
 	public String logout(HttpSession session) {
