@@ -3,6 +3,8 @@ package com.haji.MyFirstWebApp.todo;
 import java.time.LocalDate;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
@@ -25,7 +27,10 @@ public class todoController {
 	@RequestMapping("listtodo")
 	// @ResponseBody
 	public String ll(Model m) {
-		m.addAttribute("todos", ts.findByUserName((String) m.getAttribute("name")));
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+
+		String naam = auth.getName();
+		m.addAttribute("todos", ts.findByUserName(naam));
 
 		return "listtodo";
 		// return ts.findByUserName("HAJI").toString();

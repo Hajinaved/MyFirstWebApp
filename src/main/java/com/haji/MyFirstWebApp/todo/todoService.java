@@ -17,14 +17,18 @@ public class todoService {
 
 	private static int todoCount = 0;
 	private static List<todo> todos = new ArrayList();
-	static {
-		todos.add(new todo(++todoCount, "haji", "this is first todo ", LocalDate.now().plusYears(1), false));
-
-		todos.add(new todo(++todoCount, "haji", "this is Second todo ", LocalDate.now().plusYears(2), false));
-
-		todos.add(new todo(++todoCount, "haji", "this is third todo ", LocalDate.now().plusYears(3), false));
-
-	}
+	/*//static function that will be executed in the beginning
+	 * static { todos.add(new todo(++todoCount, "haji", "this is first todo ",
+	 * LocalDate.now().plusYears(1), false));
+	 * 
+	 * todos.add(new todo(++todoCount, "haji", "this is Second todo ",
+	 * LocalDate.now().plusYears(2), false));
+	 * 
+	 * todos.add(new todo(++todoCount, "haji", "this is third todo ",
+	 * LocalDate.now().plusYears(3), false));
+	 * 
+	 * }
+	 */
 
 	public void UpdateTodo(String Uname, int id, String desc, LocalDate ld, boolean isdone) {
 		todo td = todos.stream().filter(t -> (t.getId() == id)).findFirst().orElse(null);
@@ -52,8 +56,7 @@ public class todoService {
 	}
 
 	public List<todo> findByUserName(String name) {
-
-		return todos;
+		return todos.stream().filter(t -> (t.getUsername().equalsIgnoreCase(name))).toList();
 	}
 
 	public void AddTodo(String Uname, String description, LocalDate ld, boolean isdone) {
