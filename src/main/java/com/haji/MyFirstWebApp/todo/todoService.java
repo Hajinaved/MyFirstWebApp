@@ -6,19 +6,22 @@ import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import jakarta.validation.Valid;
 
 @Service
 public class todoService {
-
+	@Autowired
+	private TodoRepository tr;
 	private Logger ogger = LoggerFactory.getLogger(this.getClass());
 
 	private static int todoCount = 0;
 	private static List<todo> todos = new ArrayList();
-	/*//static function that will be executed in the beginning
-	 * static { todos.add(new todo(++todoCount, "haji", "this is first todo ",
+	/*
+	 * //static function that will be executed in the beginning static {
+	 * todos.add(new todo(++todoCount, "haji", "this is first todo ",
 	 * LocalDate.now().plusYears(1), false));
 	 * 
 	 * todos.add(new todo(++todoCount, "haji", "this is Second todo ",
@@ -60,7 +63,7 @@ public class todoService {
 	}
 
 	public void AddTodo(String Uname, String description, LocalDate ld, boolean isdone) {
-		todos.add(new todo(++todoCount, Uname, description, ld, isdone));
+		tr.save(new todo(++todoCount, Uname, description, ld, isdone));
 		// todos.add(new todo(++todoCount, "haji", description,
 		// LocalDate.now().plusMonths(1).plusDays(2), false));
 	}
@@ -79,7 +82,12 @@ public class todoService {
 	}
 
 	public void changeStatus(int id) {
-		todo td = todos.stream().filter(t -> (t.getId() == id)).findAny().orElse(null);
+		todo td = tr.getById(id);
+
+		// todo td = todos.stream().filter(t -> (t.getId() ==
+		// id)).findAny().orElse(null);
 		td.setDone(!(td.isDone()));
+		tr.deleteById(id);
+		tr.save(td);
 	}
 }

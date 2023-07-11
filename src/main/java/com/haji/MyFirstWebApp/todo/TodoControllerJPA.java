@@ -1,7 +1,5 @@
 package com.haji.MyFirstWebApp.todo;
 
-import java.time.LocalDate;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -13,16 +11,17 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 import jakarta.validation.Valid;
 
-//@Controller
+@Controller
 @SessionAttributes("name")
-public class todoController {
+public class TodoControllerJPA {
 	@Autowired
 	todoService ts;
+	@Autowired
+	TodoRepository tr;
 
 	@RequestMapping("listtodo")
 	// @ResponseBody
@@ -30,7 +29,7 @@ public class todoController {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 
 		String naam = auth.getName();
-		m.addAttribute("todos", ts.findByUserName(naam));
+		m.addAttribute("todos", tr.findByusername(naam));
 
 		return "listtodo";
 		// return ts.findByUserName("HAJI").toString();
@@ -48,9 +47,13 @@ public class todoController {
 		}
 
 		String UserName = (String) m.getAttribute("name");
-
-		ts.AddTodo(UserName, t.getDescription(), t.getTargetDate(), false);
-		m.addAttribute("todos", ts.findByUserName("hai"));
+		if(tr.getById(t.getId()) != null) {
+			tr.deleteById(t.getId());
+		}
+		tr.save(t);
+		
+		//ts.AddTodo(UserName, t.getDescription(), t.getTargetDate(), false);
+		//m.addAttribute("todos", ts.findByUserName("hai"));
 		return "redirect:listtodo";
 	}
 
@@ -65,14 +68,15 @@ public class todoController {
 
 	@RequestMapping("deletetodo")
 	public String deleteTodo(@RequestParam int id) {
-
-		ts.deleteTodo(id);
+		tr.deleteById(id);
+	//	ts.deleteTodo(id);
 		return "redirect:listtodo";
 	}
 
 	@RequestMapping("UpdateTodo")
 	public String UpdateTodo(@RequestParam int id, ModelMap m) {
-		todo t = ts.getTodo(id);
+		//todo t = ts.getTodo(id);
+		todo t=tr.getById(id);
 		m.addAttribute("todo", t);
 
 		return "Add-todo";
@@ -93,4 +97,5 @@ public class todoController {
 		return "redirect:listtodo";
 
 	}
+
 }

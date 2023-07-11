@@ -4,16 +4,19 @@ import java.time.LocalDate;
 
 import org.springframework.stereotype.Component;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
 import jakarta.validation.constraints.Size;
 
-@Component
+@Entity
 public class todo {
+	@Id
 	int id;
 	String username;
 
 	@Size(min = 10, message = "Enter minimum of 10 characters")
 	String description;
-	
+
 	LocalDate targetDate;
 	boolean done;
 
