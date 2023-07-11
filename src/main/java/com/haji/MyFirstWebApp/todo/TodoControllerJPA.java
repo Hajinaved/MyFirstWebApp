@@ -50,10 +50,11 @@ public class TodoControllerJPA {
 		if(tr.getById(t.getId()) != null) {
 			tr.deleteById(t.getId());
 		}
+		t.setUsername(UserName);
 		tr.save(t);
-		
+		//System.out.println(t.toString());
 		//ts.AddTodo(UserName, t.getDescription(), t.getTargetDate(), false);
-		//m.addAttribute("todos", ts.findByUserName("hai"));
+		//m.addAttribute("todos", tr.findByusername("hai"));
 		return "redirect:listtodo";
 	}
 
