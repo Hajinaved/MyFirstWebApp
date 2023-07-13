@@ -39,7 +39,7 @@
 			</fieldset>
 
 
-
+			<form:input type="hidden" name="username" path="username" />
 
 			<form:input type="hidden" name="id" path="id" />
 			<br>

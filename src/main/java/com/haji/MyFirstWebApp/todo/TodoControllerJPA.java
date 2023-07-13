@@ -1,5 +1,7 @@
 package com.haji.MyFirstWebApp.todo;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -15,7 +17,7 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 
 import jakarta.validation.Valid;
 
-@Controller
+//@Controller
 @SessionAttributes("name")
 public class TodoControllerJPA {
 	@Autowired
@@ -46,15 +48,14 @@ public class TodoControllerJPA {
 			return "Add-todo";
 		}
 
-		String UserName = (String) m.getAttribute("name");
-		if(tr.getById(t.getId()) != null) {
-			tr.deleteById(t.getId());
-		}
-		t.setUsername(UserName);
+		List<todo> l = tr.findAll();
+		int lastId = l.get(l.size() - 1).getId();
+		t.setUsername(null);
+		t.setId(lastId + 1);
 		tr.save(t);
-		//System.out.println(t.toString());
-		//ts.AddTodo(UserName, t.getDescription(), t.getTargetDate(), false);
-		//m.addAttribute("todos", tr.findByusername("hai"));
+		System.out.println(t.toString());
+		// ts.AddTodo(UserName, t.getDescription(), t.getTargetDate(), false);
+		m.addAttribute("todos", tr.findByusername("hai"));
 		return "redirect:listtodo";
 	}
 
@@ -62,6 +63,7 @@ public class TodoControllerJPA {
 	// listtodo.jsp to here to Add-todo.jsp >> then with details get to Add todo
 	public String addtodo(ModelMap m) {
 		String Uname = (String) m.getAttribute("name");
+
 		todo todo = new todo(0, Uname, "", null, false);
 		m.addAttribute(todo);
 		return "Add-todo";
@@ -70,14 +72,14 @@ public class TodoControllerJPA {
 	@RequestMapping("deletetodo")
 	public String deleteTodo(@RequestParam int id) {
 		tr.deleteById(id);
-	//	ts.deleteTodo(id);
+		// ts.deleteTodo(id);
 		return "redirect:listtodo";
 	}
 
 	@RequestMapping("UpdateTodo")
 	public String UpdateTodo(@RequestParam int id, ModelMap m) {
-		//todo t = ts.getTodo(id);
-		todo t=tr.getById(id);
+		// todo t = ts.getTodo(id);
+		todo t = tr.getById(id);
 		m.addAttribute("todo", t);
 
 		return "Add-todo";
