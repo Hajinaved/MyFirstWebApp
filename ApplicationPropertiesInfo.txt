@@ -1,0 +1,45 @@
+So in this file i will put all the explanation of application properties with explanation
+So I could refer it in future if I needed.
+
+
+
+spring.mvc.view.prefix=/WEB-INF/views/
+
+{This property spring mvc view prefix is used to set a prefix value for the default folder
+where we stored the jsp files, which are views file for our project 
+}
+
+
+
+
+spring.mvc.view.suffix=.jsp
+
+{This is the same as the upper time, but it is used for a suffix
+ essentially for the mentioning the extension of a file, of a views technology we are using. 
+}
+
+
+
+spring.h2.console.enabled=true
+{When we are using H2 database to store data in memory database, H2 database,
+ we use this to enable the console 
+ so we could write query directly to the H2 database and experimental little bit. }
+
+
+spring.datasource.url=jdbc:h2:mem:testdb
+{This Sir is used to store a default data source url for Jdpc So the console approach the H2 database get connected to it }
+
+
+
+
+spring.mvc.format.date=yyyy-MM-dd
+{It is used to specify the date format, which have to be used throughout the spring mvc project }
+
+
+spring.jpa.defer-datasource-initialization=true
+{This is very useful because when we have to initialise a database with the entities, but we are using the data as well, or schema dot sql file, to enter the rows into the table.
+ So we use this to alter the flow, general flow of the table creation. So the table creation happens before the execution of schema sql }
+
+
+spring.jpa.show-sql=true
+{Sql query, which are being executed in the background of the programme }

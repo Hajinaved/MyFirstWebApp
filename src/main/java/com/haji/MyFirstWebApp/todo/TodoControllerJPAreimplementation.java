@@ -46,7 +46,13 @@ public class TodoControllerJPAreimplementation {
 
 	@RequestMapping("Add-todo")
 	public String addingTodo(ModelMap m) {
-		int i = tr.findAll().get((tr.findAll().size()) - 1).getId();
+		int i;
+		if(tr.count()==0) {
+			i=0;
+		}
+		else {
+		i = tr.findAll().get((tr.findAll().size()) - 1).getId();}
+		//int i = (int)tr.count();
 		todo t = new todo();
 		String uname = (String) m.getAttribute("name");
 		// System.out.println(uname);
@@ -75,16 +81,17 @@ public class TodoControllerJPAreimplementation {
 		m.addAttribute("todo", tr.getById(id));
 		return "Add-todo";
 	}
-	
-	@RequestMapping(value="UpdateTodo",method = RequestMethod.POST)
-	public String UpdatedTodo(@ModelAttribute("todo") todo t,BindingResult R) {
-		if(R.hasErrors()) {
+
+	@RequestMapping(value = "UpdateTodo", method = RequestMethod.POST)
+	public String UpdatedTodo(@ModelAttribute("todo") todo t, BindingResult R) {
+		if (R.hasErrors()) {
 			return "Add-todo";
 		}
 		tr.deleteById(t.getId());
 		tr.save(t);
 		return "redirect:listtodo";
 		
+
 	}
 
 }
